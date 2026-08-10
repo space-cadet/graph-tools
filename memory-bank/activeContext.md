@@ -1,14 +1,14 @@
 # Active Context
 
-*Last Updated: 2026-08-10 20:35:00 UTC*
+*Last Updated: 2026-08-10 21:05:00 UTC*
 
 ## Current Focus
 
-**T1 and T2 COMPLETED.**
+**T1, T2, and Demo COMPLETED.**
 
-Both packages are scaffolded, migrated, and building successfully. D3 renderer with flow animation has been ported from econ-sim.
+Both packages are scaffolded, migrated, and building successfully. D3 renderer with flow animation has been ported from econ-sim. Demo app is live and working at https://quantumofgravity.com/projects/graph-tools/
 
-**Next Session:** Create demo app and publish to npm.
+**Next Session:** Publish to npm.
 
 ---
 
@@ -19,6 +19,7 @@ Both packages are scaffolded, migrated, and building successfully. D3 renderer w
 - **Packages**: @space-cadet/graph-core, @space-cadet/graph-ui
 - **Build**: ✅ Both packages build cleanly
 - **Tests**: ✅ 10 passing in graph-core
+- **Demo**: ✅ Live at https://quantumofgravity.com/projects/graph-tools/
 - **Publish**: Not yet published to npm
 
 ## Completed Work Summary
@@ -37,6 +38,14 @@ Both packages are scaffolded, migrated, and building successfully. D3 renderer w
 - Flow animation system (particles traveling along edges)
 - 10 tests for graph-core (all passing)
 
+### Demo App
+- Interactive D3 force-directed graph with producer/household nodes
+- 2D lattice (5×5) with spectral radius display
+- Buttons: Add Node, Shuffle, Toggle Flow, Regenerate, Highlight
+- Deployed to https://quantumofgravity.com/projects/graph-tools/
+- Screenshot saved to `memory-bank/assets/screenshots/demo-working.jpg`
+- Fixed `process.env.NODE_ENV` issue in Vite IIFE build (React bundled)
+
 ## Architecture Decisions
 
 1. **Monorepo** over separate repos (tightly coupled packages)
@@ -47,9 +56,4 @@ Both packages are scaffolded, migrated, and building successfully. D3 renderer w
 
 ## Next Steps
 
-1. Create demo app in graph-tools repo
-2. Add more tests for graph-ui
-3. Fix TypeScript strict mode issues in existing code
-4. Set up Changesets for automated publishing
-5. Publish v0.1.0 to npm
-6. Refactor econ-sim to use published packages
+1. Publish v0.1.0 to npm

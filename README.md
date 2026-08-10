@@ -23,5 +23,11 @@ pnpm build
 pnpm test
 ```
 
+## Demo
+
+Live demo: https://quantumofgravity.com/projects/graph-tools/
+
+![Demo Screenshot](memory-bank/assets/screenshots/demo-working.jpg)
+
 ## License
 MIT

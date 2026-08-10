@@ -3,6 +3,9 @@ import { resolve } from 'path';
 
 export default defineConfig({
   root: __dirname,
+  define: {
+    'process.env.NODE_ENV': '"production"'
+  },
   build: {
     outDir: 'dist',
     lib: {
