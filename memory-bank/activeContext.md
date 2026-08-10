@@ -1,14 +1,14 @@
 # Active Context
 
-*Last Updated: 2026-08-10 21:38:00 UTC*
+*Last Updated: 2026-08-10 22:30:00 UTC*
 
 ## Current Focus
 
-**T1, T2, and Demo COMPLETED.**
+**T1, T2, T3 COMPLETED. Published v0.1.3 to npm.**
 
-Both packages are scaffolded, migrated, and building successfully. D3 renderer with flow animation has been ported from econ-sim. Demo app is live and working at https://quantumofgravity.com/projects/graph-tools/
+Both packages are scaffolded, migrated, building, and published. D3 renderer with flow animation ported from econ-sim. Demo app live. Econ-sim refactor started but not yet complete.
 
-**Next Session:** Refactor econ-sim to use published packages.
+**Next Session:** Complete econ-sim refactor to use published packages.
 
 ---
 
@@ -20,7 +20,7 @@ Both packages are scaffolded, migrated, and building successfully. D3 renderer w
 - **Build**: ✅ Both packages build cleanly
 - **Tests**: ✅ 10 passing in graph-core
 - **Demo**: ✅ Live at https://quantumofgravity.com/projects/graph-tools/
-- **Publish**: ✅ v0.1.0 published to npm (2026-08-10)
+- **Publish**: ✅ v0.1.3 published to npm (2026-08-10)
 
 ## Completed Work Summary
 
