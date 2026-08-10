@@ -1,38 +1,44 @@
 # Project Brief
-*Last Updated: 2026-10-08 18:16:59 UTC*
+*Last Updated: 2026-08-10 20:15:00 UTC*
 
 ## Project Overview
-**Project Name**: [Fill in project name]
-**Description**: [Brief description of what this project does]
+**Project Name**: graph-tools
+**Description**: Monorepo for reusable graph theory and visualization packages. Extracted from spin-network-app and enhanced with features from econ-sim.
 
 ## Objectives
-1. [Primary objective]
-2. [Secondary objective]
-3. [Additional objectives]
+1. Create publishable npm packages for graph data structures and visualization
+2. Support multiple renderers (Sigma.js, Three.js, D3.js)
+3. Provide clean separation between logical graph and visual rendering
+4. Enable reuse across projects (econ-sim, spin-network-app, future projects)
 
 ## Key Features
-- [Feature 1]
-- [Feature 2]
-- [Feature 3]
+- Typed graph interfaces (IGraph, ITypedGraph, IOrderedGraph, ISimplicialGraph)
+- Graph generators (lattice, random, complete, path, etc.)
+- Matrix operations (adjacency, Laplacian, spectral radius)
+- Multi-renderer visualization layer
+- Flow animation and interactive edge creation
 
 ## Tech Stack
-- **Language**: [Primary language]
-- **Framework**: [Framework if applicable]
-- **Database**: [Database choice]
-- **Other tools**: [Other relevant tools]
+- **Language**: TypeScript
+- **Build**: Vite + Turborepo
+- **Package Manager**: pnpm workspaces
+- **Graph Library**: Graphology
+- **Renderers**: Sigma.js, Three.js, D3.js
 
 ## Constraints & Requirements
-- [Constraint/Requirement 1]
-- [Constraint/Requirement 2]
-- [Constraint/Requirement 3]
+- Zero UI dependencies in graph-core
+- React peer dependency only in graph-ui
+- Support both CommonJS and ESM
+- Publish under @space-cadet scope
 
 ## Success Metrics
-- [Metric 1]
-- [Metric 2]
-- [Metric 3]
+- Both packages build cleanly
+- All existing spin-network-app tests pass
+- Econ-sim can import and use packages
+- Published to npm
 
 ## Repository
-**URL**: [Link to repository if applicable]
+**URL**: https://github.com/space-cadet/graph-tools
 
 ## Team/Contributors
-- [Name]: [Role]
+- Deepak Vaid (space-cadet)
