@@ -1,22 +1,24 @@
 # Active Context
 
-*Last Updated: 2026-08-10 20:15:00 UTC*
+*Last Updated: 2026-08-10 20:35:00 UTC*
 
 ## Current Focus
 
-**T2: Port D3 renderer and flow animation**
+**T1 and T2 COMPLETED.**
 
-Graph-core and graph-ui packages migrated. Now porting econ-sim visualization features:
-- D3.js force-directed renderer
-- Flow particle animation
-- Edge creation with ghost lines
+Both packages are scaffolded, migrated, and building successfully. D3 renderer with flow animation has been ported from econ-sim.
+
+**Next Session:** Create demo app and publish to npm.
+
+---
 
 ## System Status
 
 - **Project**: graph-tools at `code/graph-tools/`
 - **Repository**: https://github.com/space-cadet/graph-tools
 - **Packages**: @space-cadet/graph-core, @space-cadet/graph-ui
-- **Build**: Not yet tested
+- **Build**: ✅ Both packages build cleanly
+- **Tests**: ✅ 10 passing in graph-core
 - **Publish**: Not yet published to npm
 
 ## Completed Work Summary
@@ -25,8 +27,15 @@ Graph-core and graph-ui packages migrated. Now porting econ-sim visualization fe
 - GitHub repo created and initial commit pushed
 - pnpm workspace + Turborepo configured
 - graph-core cleaned (removed UI deps, added id, spectralRadius)
-- graph-ui imports fixed
+- graph-ui imports fixed, ready for D3 renderer port
 - Root tsconfig + per-package tsconfigs
+
+### T2: Port D3 Renderer
+- D3LayoutEngine for force-directed layouts
+- D3GraphCanvas React component with drag-and-drop
+- D3Renderer vanilla JS class for non-React usage
+- Flow animation system (particles traveling along edges)
+- 10 tests for graph-core (all passing)
 
 ## Architecture Decisions
 
@@ -38,8 +47,9 @@ Graph-core and graph-ui packages migrated. Now porting econ-sim visualization fe
 
 ## Next Steps
 
-1. Port D3 renderer from econ-sim NetworkVisualization
-2. Port flow animation system
-3. Port edge creation interaction
-4. Test build with pnpm
+1. Create demo app in graph-tools repo
+2. Add more tests for graph-ui
+3. Fix TypeScript strict mode issues in existing code
+4. Set up Changesets for automated publishing
 5. Publish v0.1.0 to npm
+6. Refactor econ-sim to use published packages
