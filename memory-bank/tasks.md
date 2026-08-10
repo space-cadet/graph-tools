@@ -1,7 +1,7 @@
 # Memory Bank — graph-tools
 
 *Created: 2026-08-10 18:13:00 UTC*
-*Last Updated: 2026-08-10 20:35:00 UTC*
+*Last Updated: 2026-08-10 20:40:00 UTC*
 
 ## Overview
 
@@ -11,6 +11,7 @@ Monorepo for reusable graph packages extracted from spin-network-app. Contains:
 
 **Repository:** https://github.com/space-cadet/graph-tools
 **NPM Scope:** `@space-cadet/*`
+**Demo:** https://quantumofgravity.com/projects/graph-tools/
 
 ## Active Tasks
 
@@ -36,12 +37,13 @@ Monorepo for reusable graph packages extracted from spin-network-app. Contains:
 - Ported flow animation system from econ-sim
 - Added tests for graph-core (10 passing)
 - Both packages build successfully
+- Demo app created and deployed
 
 ## Status Summary
 
 - **Active**: 0
 - **Completed**: 2 (T1, T2)
-- **Pending**: 0
+- **Pending**: 1 (Publish to npm)
 - **Total**: 2
 
 ## Build Status
@@ -49,3 +51,13 @@ Monorepo for reusable graph packages extracted from spin-network-app. Contains:
 - **graph-core**: ✅ Builds (16.37 kB ESM, 11.92 kB CJS)
 - **graph-ui**: ✅ Builds (80.37 kB ESM, 59.43 kB CJS)
 - **Tests**: ✅ 10 passing in graph-core
+
+## Demo App
+
+Live at: https://quantumofgravity.com/projects/graph-tools/
+
+Features:
+- Interactive force-directed graph with node addition
+- 2D lattice visualization with spectral radius display
+- Flow animation toggle
+- Responsive layout
