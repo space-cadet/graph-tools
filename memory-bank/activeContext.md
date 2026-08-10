@@ -1,6 +1,6 @@
 # Active Context
 
-*Last Updated: 2026-08-10 21:05:00 UTC*
+*Last Updated: 2026-08-10 21:38:00 UTC*
 
 ## Current Focus
 
@@ -8,7 +8,7 @@
 
 Both packages are scaffolded, migrated, and building successfully. D3 renderer with flow animation has been ported from econ-sim. Demo app is live and working at https://quantumofgravity.com/projects/graph-tools/
 
-**Next Session:** Publish to npm.
+**Next Session:** Refactor econ-sim to use published packages.
 
 ---
 
@@ -20,7 +20,7 @@ Both packages are scaffolded, migrated, and building successfully. D3 renderer w
 - **Build**: ✅ Both packages build cleanly
 - **Tests**: ✅ 10 passing in graph-core
 - **Demo**: ✅ Live at https://quantumofgravity.com/projects/graph-tools/
-- **Publish**: Not yet published to npm
+- **Publish**: ✅ v0.1.0 published to npm (2026-08-10)
 
 ## Completed Work Summary
 
