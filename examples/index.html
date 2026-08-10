@@ -65,8 +65,6 @@
     button:hover { background: #64748b; }
     button.primary { background: #6366f1; }
     button.primary:hover { background: #818cf8; }
-    button.danger { background: #ef4444; }
-    button.danger:hover { background: #f87171; }
     .info {
       margin-top: 12px;
       padding: 12px;
@@ -89,7 +87,6 @@
 
   <div class="container">
     <div class="demo-grid">
-      <!-- Demo 1: Basic D3 Graph -->
       <div class="demo-card">
         <h3>D3 Force-Directed Graph</h3>
         <div id="d3-graph" class="graph-container"></div>
@@ -105,7 +102,6 @@
         </div>
       </div>
 
-      <!-- Demo 2: Lattice Graph -->
       <div class="demo-card">
         <h3>2D Lattice (5×5)</h3>
         <div id="lattice-graph" class="graph-container"></div>
@@ -121,148 +117,6 @@
     </div>
   </div>
 
-  <script type="module">
-    import { GraphologyAdapter, lattice2D, complete } from './graph-core-dist/index.mjs';
-    import { D3Renderer } from './graph-ui-dist/index.mjs';
-
-    // Demo 1: Interactive D3 Graph
-    let graph1 = new GraphologyAdapter('demo1');
-    let renderer1 = new D3Renderer('#d3-graph', {
-      width: 500,
-      height: 350,
-      colors: {
-        node: (n) => n.properties?.type === 'producer' ? '#f87171' : '#2dd4bf',
-        edge: '#475569',
-        text: '#e2e8f0',
-        highlight: '#fbbf24',
-        flow: '#fbbf24',
-        stroke: '#1e293b'
-      },
-      enableDrag: true,
-      enableFlowAnimation: false
-    });
-
-    // Create initial graph
-    function initGraph1() {
-      graph1 = new GraphologyAdapter('demo1');
-      // Add nodes
-      for (let i = 0; i < 5; i++) {
-        graph1.addNode({
-          id: `n${i}`,
-          type: i < 2 ? 'producer' : 'household',
-          properties: { label: i < 2 ? `P${i}` : `H${i-2}` }
-        });
-      }
-      // Add edges (star topology)
-      for (let i = 1; i < 5; i++) {
-        graph1.addEdge({
-          id: `e0-${i}`,
-          sourceId: 'n0',
-          targetId: `n${i}`,
-          type: 'default',
-          directed: false,
-          properties: {}
-        });
-      }
-      renderer1.render(graph1);
-      updateInfo1();
-    }
-
-    function updateInfo1() {
-      document.getElementById('node-count').textContent = graph1.nodeCount;
-      document.getElementById('edge-count').textContent = graph1.edgeCount;
-    }
-
-    window.addRandomNode = () => {
-      const id = `n${graph1.nodeCount}`;
-      graph1.addNode({
-        id,
-        type: 'household',
-        properties: { label: `H${graph1.nodeCount - 2}` }
-      });
-      // Connect to random existing node
-      const existing = graph1.getNodes();
-      const target = existing[Math.floor(Math.random() * existing.length)];
-      if (target.id !== id) {
-        graph1.addEdge({
-          id: `e-${id}-${target.id}`,
-          sourceId: id,
-          targetId: target.id,
-          type: 'default',
-          directed: false,
-          properties: {}
-        });
-      }
-      renderer1.render(graph1);
-      updateInfo1();
-    };
-
-    window.randomizeLayout = () => {
-      renderer1.render(graph1);
-    };
-
-    let flowInterval = null;
-    window.toggleFlow = () => {
-      if (flowInterval) {
-        clearInterval(flowInterval);
-        flowInterval = null;
-        renderer1.setFlowAnimationEnabled(false);
-      } else {
-        renderer1.setFlowAnimationEnabled(true);
-        let t = 0;
-        flowInterval = setInterval(() => {
-          const flows = graph1.getEdges().map(e => ({
-            source: e.sourceId,
-            target: e.targetId,
-            value: Math.random() * 2
-          }));
-          renderer1.updateFlows(flows, t++);
-        }, 600);
-      }
-    };
-
-    renderer1.onNodeClick = (id) => {
-      document.getElementById('selected-node').textContent = id;
-    };
-
-    // Demo 2: Lattice Graph
-    let graph2 = lattice2D(5, 5);
-    let renderer2 = new D3Renderer('#lattice-graph', {
-      width: 500,
-      height: 350,
-      colors: {
-        node: '#60a5fa',
-        edge: '#475569',
-        text: '#e2e8f0',
-        highlight: '#fbbf24',
-        stroke: '#1e293b'
-      },
-      forces: {
-        linkDistance: 60,
-        chargeStrength: -200
-      }
-    });
-
-    function initGraph2() {
-      graph2 = lattice2D(5, 5);
-      renderer2.render(graph2);
-      const rho = graph2.spectralRadius();
-      document.getElementById('spectral').textContent = rho.toFixed(3);
-    }
-
-    window.createLattice = () => {
-      initGraph2();
-    };
-
-    window.highlightRandom = () => {
-      const nodes = graph2.getNodes();
-      const random = nodes[Math.floor(Math.random() * nodes.length)];
-      renderer2.selectNode(random.id);
-    };
-
-    // Initialize
-    initGraph1();
-    initGraph2();
-  </script>
+  <script src="demo.js"></script>
 </body>
 </html>

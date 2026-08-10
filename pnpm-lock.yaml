@@ -15,6 +15,28 @@ importers:
         specifier: ^5.3.0
         version: 5.9.3
 
+  examples:
+    dependencies:
+      d3:
+        specifier: ^7.9.0
+        version: 7.9.0
+      graphology:
+        specifier: ^0.26.0
+        version: 0.26.0(graphology-types@0.24.8)
+      mathjs:
+        specifier: ^12.1.0
+        version: 12.4.3
+    devDependencies:
+      '@types/d3':
+        specifier: ^7.4.3
+        version: 7.4.3
+      typescript:
+        specifier: ^5.3.0
+        version: 5.9.3
+      vite:
+        specifier: ^5.4.21
+        version: 5.4.21
+
   packages/graph-core:
     dependencies:
       graphology:

@@ -2,6 +2,7 @@ export { GraphCanvas } from './components/canvas/GraphCanvas';
 export { D3GraphCanvas } from './components/canvas/D3GraphCanvas';
 export { useGraphInstance } from './hooks/useGraphInstance';
 export { RenderGraph } from './rendering/RenderGraph';
+export { D3Renderer } from './rendering/D3Renderer';
 export * from './layout';
 export type { 
   GraphCanvasProps,

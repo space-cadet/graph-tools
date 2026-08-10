@@ -1,7 +1,7 @@
 # Memory Bank — graph-tools
 
 *Created: 2026-08-10 18:13:00 UTC*
-*Last Updated: 2026-08-10 20:40:00 UTC*
+*Last Updated: 2026-08-10 20:52:00 UTC*
 
 ## Overview
 
@@ -37,7 +37,7 @@ Monorepo for reusable graph packages extracted from spin-network-app. Contains:
 - Ported flow animation system from econ-sim
 - Added tests for graph-core (10 passing)
 - Both packages build successfully
-- Demo app created and deployed
+- Demo app created and deployed (IIFE bundle fix)
 
 ## Status Summary
 
@@ -48,13 +48,15 @@ Monorepo for reusable graph packages extracted from spin-network-app. Contains:
 
 ## Build Status
 
-- **graph-core**: ✅ Builds (16.37 kB ESM, 11.92 kB CJS)
-- **graph-ui**: ✅ Builds (80.37 kB ESM, 59.43 kB CJS)
+- **graph-core**: ✅ Builds (16.43 kB ESM, 11.95 kB CJS)
+- **graph-ui**: ✅ Builds (87.26 kB ESM, 65.02 kB CJS)
 - **Tests**: ✅ 10 passing in graph-core
 
 ## Demo App
 
 Live at: https://quantumofgravity.com/projects/graph-tools/
+
+**Deployment fix:** Built as IIFE bundle (demo.js, 362 kB) to avoid bare module specifier issues in browser.
 
 Features:
 - Interactive force-directed graph with node addition
