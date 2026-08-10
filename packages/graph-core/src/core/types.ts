@@ -235,6 +235,8 @@ export interface IGraph {
   // Traversal operations
   getAdjacentNodes(nodeId: string, options?: ITraversalOptions): readonly IGraphNode[];
   getConnectedEdges(nodeId: string, options?: ITraversalOptions): readonly IGraphEdge[];
+  getOutgoingEdges(nodeId: string): readonly IGraphEdge[];
+  getIncomingEdges(nodeId: string): readonly IGraphEdge[];
   findPath(fromId: string, toId: string, options?: ITraversalOptions): readonly IGraphElement[];
   
   // Matrix operations
@@ -252,6 +254,10 @@ export interface IGraph {
   getNodeDegree(nodeId: string, options?: ITraversalOptions): number;
   clone(): IGraph;
   clear(): IGraph;
+  
+  // Serialization
+  toJSON(): object;
+  fromJSON(data: { id?: string; metadata?: IGraphMetadata; nodes: IGraphNode[]; edges: IGraphEdge[] }): IGraph;
 }
 
 // --- Specialized Graph Interfaces ---

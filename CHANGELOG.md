@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.3] - 2026-08-10
+
+### Fixed
+- **graph-core**: Added `getOutgoingEdges()` and `getIncomingEdges()` to `IGraph` interface so they're properly exported in dist
+- **graph-core**: Added `toJSON()` / `fromJSON()` to `IGraph` interface
+- Removed stale `.js` files in `src/` that shadowed `.ts` sources during Vite build
+
 ## [0.1.2] - 2026-08-10
 
 ### Added
