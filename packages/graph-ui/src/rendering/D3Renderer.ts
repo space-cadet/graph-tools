@@ -348,6 +348,155 @@ export class D3Renderer {
     this.links = [];
   }
 
+  /**
+   * Incremental update: add/remove nodes and edges without destroying the SVG.
+   * Preserves current simulation state and positions.
+   */
+  update(graph: IGraph) {
+    if (!this.svg || !this.simulation) {
+      this.render(graph);
+      return;
+    }
+
+    const { colors, nodeRadius, enableDrag } = this.options;
+
+    // Get current graph state
+    const graphNodes = graph.getNodes();
+    const graphEdges = graph.getEdges();
+
+    // Create ID sets for diffing
+    const currentNodeIds = new Set(this.nodes.map(n => n.id));
+    const newNodeIds = new Set(graphNodes.map(n => n.id));
+    const currentLinkIds = new Set(this.links.map(l => l.id));
+    const newLinkIds = new Set(graphEdges.map(e => e.id));
+
+    // Remove nodes that no longer exist
+    this.nodes = this.nodes.filter(n => newNodeIds.has(n.id));
+
+    // Add new nodes
+    for (const node of graphNodes) {
+      if (!currentNodeIds.has(node.id)) {
+        this.nodes.push({
+          id: node.id,
+          data: node,
+          x: this.options.width / 2 + (Math.random() - 0.5) * 100,
+          y: this.options.height / 2 + (Math.random() - 0.5) * 100
+        });
+      }
+    }
+
+    // Remove links that no longer exist
+    this.links = this.links.filter(l => newLinkIds.has(l.id));
+
+    // Add new links
+    for (const edge of graphEdges) {
+      if (!currentLinkIds.has(edge.id)) {
+        this.links.push({
+          id: edge.id,
+          source: edge.sourceId,
+          target: edge.targetId,
+          data: edge
+        });
+      }
+    }
+
+    // Update simulation data
+    this.simulation.nodes(this.nodes);
+    (this.simulation.force('link') as d3.ForceLink<D3SimNode, D3SimLink>).links(this.links);
+
+    // Get groups
+    const linkGroup = this.svg.select('g.links');
+    const nodeGroup = this.svg.select('g.nodes');
+
+    // Update links with D3 join
+    const link = linkGroup.selectAll<SVGLineElement, D3SimLink>('line')
+      .data(this.links, (d: any) => d.id);
+
+    link.exit().remove();
+
+    link.enter()
+      .append('line')
+      .attr('stroke', colors.edge)
+      .attr('stroke-width', 2)
+      .attr('marker-end', 'url(#arrow)')
+      .attr('cursor', 'pointer')
+      .on('click', (e, d) => {
+        e.stopPropagation();
+        if (this.onEdgeClick) this.onEdgeClick(d.id);
+      });
+
+    // Update nodes with D3 join
+    const node = nodeGroup.selectAll<SVGGElement, D3SimNode>('g.node')
+      .data(this.nodes, (d: any) => d.id);
+
+    const exiting = node.exit();
+    exiting.remove();
+
+    const entering = node.enter()
+      .append('g')
+      .attr('class', 'node')
+      .attr('cursor', 'pointer');
+
+    entering.append('circle')
+      .attr('r', nodeRadius)
+      .attr('fill', d => this.getNodeColor(d.data))
+      .attr('stroke', colors.stroke)
+      .attr('stroke-width', 2);
+
+    entering.append('circle')
+      .attr('class', 'selection-ring')
+      .attr('r', nodeRadius + 4)
+      .attr('fill', 'none')
+      .attr('stroke', colors.highlight)
+      .attr('stroke-width', 3)
+      .attr('opacity', 0);
+
+    entering.append('text')
+      .attr('dy', nodeRadius + 16)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '11px')
+      .attr('font-weight', '500')
+      .attr('fill', colors.text)
+      .text(d => d.data.properties?.label || d.id);
+
+    entering.append('text')
+      .attr('class', 'value-label')
+      .attr('dy', 5)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '10px')
+      .attr('font-weight', '600')
+      .attr('fill', colors.text);
+
+    if (enableDrag) {
+      entering.call(d3.drag<SVGGElement, D3SimNode>()
+        .on('start', (e, d) => {
+          if (!e.active) this.simulation!.alphaTarget(0.3).restart();
+          d.fx = d.x;
+          d.fy = d.y;
+        })
+        .on('drag', (e, d) => {
+          d.fx = e.x;
+          d.fy = e.y;
+        })
+        .on('end', (e, d) => {
+          if (!e.active) this.simulation!.alphaTarget(0);
+          d.fx = null;
+          d.fy = null;
+        }));
+    }
+
+    entering.on('click', (e, d) => {
+      e.stopPropagation();
+      this.selectNode(d.id);
+      if (this.onNodeClick) this.onNodeClick(d.id);
+    });
+
+    // Reheat simulation if structure changed
+    if (entering.size() > 0 || exiting.size() > 0) {
+      this.simulation.alpha(0.3).restart();
+    }
+  }
+
   getSelectedNodeId(): string | null {
     return this.selectedNodeId;
   }

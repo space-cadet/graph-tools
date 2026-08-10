@@ -149,6 +149,26 @@ export class GraphologyAdapter implements IGraph {
     return edges.map(id => this.getEdge(id)!);
   }
 
+  /**
+   * Get edges where the given node is the source (outgoing edges).
+   * For undirected graphs, this returns all connected edges (same as getConnectedEdges).
+   */
+  getOutgoingEdges(nodeId: string): readonly IGraphEdge[] {
+    if (!this.graph.hasNode(nodeId)) return [];
+    const edges = this.graph.outEdges(nodeId);
+    return edges.map(id => this.getEdge(id)!);
+  }
+
+  /**
+   * Get edges where the given node is the target (incoming edges).
+   * For undirected graphs, this returns all connected edges (same as getConnectedEdges).
+   */
+  getIncomingEdges(nodeId: string): readonly IGraphEdge[] {
+    if (!this.graph.hasNode(nodeId)) return [];
+    const edges = this.graph.inEdges(nodeId);
+    return edges.map(id => this.getEdge(id)!);
+  }
+
   findPath(fromId: string, toId: string, _options?: ITraversalOptions): readonly IGraphElement[] {
     // Basic BFS implementation
     const queue: Array<{node: string, path: IGraphElement[]}> = [{node: fromId, path: []}];
@@ -257,6 +277,37 @@ export class GraphologyAdapter implements IGraph {
 
   clear(): IGraph {
     this.graph.clear();
+    return this;
+  }
+
+  // --- Serialization ---
+
+  toJSON(): object {
+    return {
+      id: this.id,
+      metadata: this.metadata,
+      nodes: this.getNodes().map(n => ({ id: n.id, type: n.type, properties: n.properties })),
+      edges: this.getEdges().map(e => ({ 
+        id: e.id, sourceId: e.sourceId, targetId: e.targetId, 
+        type: e.type, directed: e.directed, properties: e.properties 
+      }))
+    };
+  }
+
+  fromJSON(data: { id?: string; metadata?: IGraphMetadata; nodes: IGraphNode[]; edges: IGraphEdge[] }): IGraph {
+    this.graph.clear();
+    if (data.id) {
+      (this as any).id = data.id;
+    }
+    if (data.metadata) {
+      this.metadata = data.metadata;
+    }
+    for (const node of data.nodes) {
+      this.addNode(node);
+    }
+    for (const edge of data.edges) {
+      this.addEdge(edge);
+    }
     return this;
   }
 
